@@ -1,17 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows10.0.19041.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
-    <PackageReference Include="Vortice.Direct3D11" Version="1.6.0" PrivateAssets="compile" />
-    <PackageReference Include="Vortice.Direct3D12" Version="1.6.0" PrivateAssets="compile" />
+    <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
+    <PackageReference Include="Vortice.Direct3D11" Version="2.1.0" PrivateAssets="compile" />
+    <PackageReference Include="Vortice.Direct3D12" Version="2.1.0" PrivateAssets="compile" />
   </ItemGroup>
 
   <ItemGroup>

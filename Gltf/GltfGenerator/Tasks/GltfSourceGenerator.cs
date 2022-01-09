@@ -11,8 +11,9 @@ namespace GltfGenerator.Tasks
     {
         public string? GltfSchema { get; set; } = @"..\Gltf\specification\2.0\schema\glTF.schema.json";
 
-        public void Execute(SourceGeneratorContext context)
+        public void Execute(GeneratorExecutionContext context)
         {
+
             CodeGenerator generator = new CodeGenerator(GltfSchema);
             generator.ParseSchemas();
             generator.ExpandSchemaReferences();
@@ -27,8 +28,9 @@ namespace GltfGenerator.Tasks
             }
         }
 
-        public void Initialize(InitializationContext context)
+        public void Initialize(GeneratorInitializationContext context)
         {
+            throw new System.NotImplementedException();
         }
     }
 }

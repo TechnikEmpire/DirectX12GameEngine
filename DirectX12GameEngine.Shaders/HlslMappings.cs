@@ -73,7 +73,7 @@ namespace DirectX12GameEngine.Shaders
 
         private static string? GetTypeNameFromAttribute(ITypeSymbol typeSymbol)
         {
-            AttributeData? attributeData = typeSymbol.GetAttributes().FirstOrDefault(a => a.AttributeClass.ToString() == typeof(ShaderTypeAttribute).FullName);
+            AttributeData? attributeData = typeSymbol.GetAttributes().FirstOrDefault(a => a.AttributeClass!.ToString() == typeof(ShaderTypeAttribute).FullName);
             return (string?)attributeData?.ConstructorArguments.First().Value;
         }
 

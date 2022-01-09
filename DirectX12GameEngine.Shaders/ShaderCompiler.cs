@@ -14,7 +14,7 @@ namespace DirectX12GameEngine.Shaders
 
         public static byte[] Compile(ShaderStage shaderStage, string source, string entryPoint, string sourceName, ShaderModel shaderModel)
         {
-            return Compile(shaderStage, source, entryPoint, sourceName, new DxcCompilerOptions { ShaderModel = Unsafe.As<ShaderModel, DxcShaderModel>(ref shaderModel), PackMatrixInRowMajor = true });
+            return Compile(shaderStage, source, entryPoint, sourceName, new DxcCompilerOptions { ShaderModel = Unsafe.As<ShaderModel, DxcShaderModel>(ref shaderModel), PackMatrixRowMajor = true });
         }
 
         private static byte[] Compile(ShaderStage shaderStage, string source, string entryPoint, string sourceName, DxcCompilerOptions options)
@@ -25,11 +25,11 @@ namespace DirectX12GameEngine.Shaders
 
             List<string> arguments = new List<string>();
 
-            if (options.PackMatrixInColumnMajor)
+            if (options.PackMatrixColumnMajor)
             {
                 arguments.Add("-Zpc");
             }
-            else if (options.PackMatrixInRowMajor)
+            else if (options.PackMatrixRowMajor)
             {
                 arguments.Add("-Zpr");
             }

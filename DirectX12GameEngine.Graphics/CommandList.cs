@@ -22,8 +22,8 @@ namespace DirectX12GameEngine.Graphics
             GraphicsDevice = device;
             CommandListType = commandListType;
 
-            NativeCommandAllocator = GraphicsDevice.NativeDevice.CreateCommandAllocator((Vortice.Direct3D12.CommandListType)CommandListType);
-            NativeCommandList = GraphicsDevice.NativeDevice.CreateCommandList((Vortice.Direct3D12.CommandListType)CommandListType, NativeCommandAllocator, null);
+            NativeCommandAllocator = GraphicsDevice.NativeDevice.CreateCommandAllocator<ID3D12CommandAllocator>((Vortice.Direct3D12.CommandListType)CommandListType);
+            NativeCommandList = GraphicsDevice.NativeDevice.CreateCommandList<ID3D12GraphicsCommandList>((Vortice.Direct3D12.CommandListType)CommandListType, NativeCommandAllocator, null);
 
             SetDescriptorHeaps(GraphicsDevice.ShaderVisibleShaderResourceViewAllocator, GraphicsDevice.ShaderVisibleSamplerAllocator);
         }
@@ -151,7 +151,7 @@ namespace DirectX12GameEngine.Graphics
             return new CompiledCommandList(this, NativeCommandAllocator, NativeCommandList);
         }
 
-        public void CopyBufferRegion(GraphicsResource source, long sourceOffset, GraphicsResource destination, long destinationOffset, long numBytes)
+        public void CopyBufferRegion(GraphicsResource source, ulong sourceOffset, GraphicsResource destination, ulong destinationOffset, ulong numBytes)
         {
             NativeCommandList.CopyBufferRegion(destination.NativeResource, destinationOffset, source.NativeResource, sourceOffset, numBytes);
         }

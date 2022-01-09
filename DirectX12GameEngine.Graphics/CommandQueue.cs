@@ -23,7 +23,7 @@ namespace DirectX12GameEngine.Graphics
 
         internal ID3D12Fence Fence { get; }
 
-        internal long NextFenceValue { get; private set; } = 1;
+        internal ulong NextFenceValue { get; private set; } = 1;
 
         public void Dispose()
         {
@@ -40,7 +40,7 @@ namespace DirectX12GameEngine.Graphics
         {
             if (commandLists.Count() == 0) return;
 
-            long fenceValue = ExecuteCommandListsInternal(commandLists);
+            ulong fenceValue = ExecuteCommandListsInternal(commandLists);
 
             WaitForFence(Fence, fenceValue);
         }
@@ -54,14 +54,14 @@ namespace DirectX12GameEngine.Graphics
         {
             if (commandLists.Count() == 0) return Task.CompletedTask;
 
-            long fenceValue = ExecuteCommandListsInternal(commandLists);
+            ulong fenceValue = ExecuteCommandListsInternal(commandLists);
 
             return WaitForFenceAsync(Fence, fenceValue);
         }
 
-        private long ExecuteCommandListsInternal(IEnumerable<CompiledCommandList> commandLists)
+        private ulong ExecuteCommandListsInternal(IEnumerable<CompiledCommandList> commandLists)
         {
-            long fenceValue = NextFenceValue++;
+            ulong fenceValue = NextFenceValue++;
             ID3D12CommandList[] nativeCommandLists = commandLists.Select(c => c.NativeCommandList).ToArray();
 
             NativeCommandQueue.ExecuteCommandLists(nativeCommandLists);
@@ -70,12 +70,12 @@ namespace DirectX12GameEngine.Graphics
             return fenceValue;
         }
 
-        internal bool IsFenceComplete(ID3D12Fence fence, long fenceValue)
+        internal bool IsFenceComplete(ID3D12Fence fence, ulong fenceValue)
         {
             return fence.CompletedValue >= fenceValue;
         }
 
-        internal void WaitForFence(ID3D12Fence fence, long fenceValue)
+        internal void WaitForFence(ID3D12Fence fence, ulong fenceValue)
         {
             if (IsFenceComplete(fence, fenceValue)) return;
 
@@ -85,7 +85,7 @@ namespace DirectX12GameEngine.Graphics
             fenceEvent.WaitOne();
         }
 
-        internal Task WaitForFenceAsync(ID3D12Fence fence, long fenceValue)
+        internal Task WaitForFenceAsync(ID3D12Fence fence, ulong fenceValue)
         {
             if (IsFenceComplete(fence, fenceValue)) return Task.CompletedTask;
 

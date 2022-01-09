@@ -22,7 +22,7 @@ namespace DirectX12GameEngine.Graphics
                 Height = presentationParameters.BackBufferHeight,
                 SampleDescription = new Vortice.DXGI.SampleDescription(1, 0),
                 Stereo = presentationParameters.Stereo,
-                Usage = Usage.RenderTargetOutput,
+                BufferUsage = Usage.RenderTargetOutput,
                 BufferCount = BufferCount,
                 Scaling = Scaling.Stretch,
                 SwapEffect = SwapEffect.FlipSequential,
@@ -31,9 +31,9 @@ namespace DirectX12GameEngine.Graphics
                 AlphaMode = AlphaMode.Unspecified
             };
 
-            DXGI.CreateDXGIFactory2(false, out IDXGIFactory2 factory);
+            DXGI.CreateDXGIFactory2(false, out IDXGIFactory2? factory);
             using ComObject window = new ComObject(coreWindow);
-            using IDXGISwapChain1 tempSwapChain = factory.CreateSwapChainForCoreWindow(device.DirectCommandQueue.NativeCommandQueue, window, swapChainDescription);
+            using IDXGISwapChain1 tempSwapChain = factory!.CreateSwapChainForCoreWindow(device.DirectCommandQueue.NativeCommandQueue, window, swapChainDescription);
             factory.Dispose();
 
             return tempSwapChain.QueryInterface<IDXGISwapChain3>();

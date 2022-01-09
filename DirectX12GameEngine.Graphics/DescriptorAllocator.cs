@@ -42,7 +42,7 @@ namespace DirectX12GameEngine.Graphics
 
         internal ID3D12DescriptorHeap DescriptorHeap { get; }
 
-        public long GetGpuDescriptorHandle(IntPtr descriptor)
+        public ulong GetGpuDescriptorHandle(IntPtr descriptor)
         {
             if (!Flags.HasFlag(DescriptorHeapFlags.ShaderVisible)) throw new InvalidOperationException();
 
